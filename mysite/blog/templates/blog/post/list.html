@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %} {% block content %}
+<h1>Blog</h1>
+<ul>
+  {% for post in posts %} {% comment %}
+
+  <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a>
+  {% endcomment %}
+
+  <h2>
+    <a href="{{post.get_absolute_url}}">{{ post.title }}</a>
+  </h2>
+  <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+  {{ post.body| truncatewords:30 |linebreaks }} {% endfor %}
+</ul>
+
+{% include "pagination.html" with page=posts %} {% endblock %}
